@@ -105,9 +105,14 @@
                             </a>
                         </div>
                         <div class="mt-2">
-                            <a href="" class="text-white" style="text-decoration: none;">
-                                <i class="bi bi-bookmark" style="font-size: 1.5rem; color: #3F9AA8;"></i>
-                            </a>
+                            @if(auth()->check() && auth()->user())
+                            <form action="{{ route('bookmark.store', $post) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn text-white px-2 d-flex" style="text-decoration: none;">
+                                    <i class="bi bi-bookmark{{ $post->bookmarkedBy(auth()->user()) ? '-fill' : '' }}" style="color: {{ $post->bookmarkedBy(auth()->user()) ? 'white' : 'white' }}"></i>
+                                </button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                     <div class="mt-2" style="font-size: 12px;">
