@@ -21,7 +21,7 @@
                     <div class="d-flex justify-content-between mt-3 px-4">
                         <div class="d-flex">
                             <div>
-                                <img src="{{ asset('images/default_profile.png') }}" class="rounded-circle" alt="user" width="40px">
+                                <img src="{{ $post->user->image ? Storage::url($post->user->image) : asset('images/default_profile.png') }}" class="rounded-circle" alt="user" width="40px">
                             </div>
                             <div class="mx-2">
                                 <p class="mb-0 fw-bold" style="font-size: 14px;">{{ $post->user->username }}</p>
@@ -65,10 +65,13 @@
                                     </button>
                                 </form>
                                 @endif
-                                <a href="{{ route('seePost', ['post_id' => $post->id]) }}" class="text-white d-flex px-5" style="text-decoration: none;">
-                                    <i class="bi bi-chat"></i>
-                                    <p class="card-text mx-2">0 Comments</p>
-                                </a>
+                                <form action="{{ route('seePost', ['post_id' => $post->id]) }}" method="GET">
+                                    @csrf
+                                    <button type="submit" class="btn text-white px-2 d-flex" style="text-decoration: none;">
+                                        <i class="bi bi-chat"></i>
+                                        <p class="card-text mx-2">0 Comments</p>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </a>
